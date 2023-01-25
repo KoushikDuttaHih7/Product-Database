@@ -1,17 +1,31 @@
 const mongodb = require("mongodb");
 const MongoClient = mongodb.MongoClient;
 
+let _db;
+// _db, the underscore is only here to signal that
+// this will only be used internally in this file
+
 const mongoConnect = (callback) => {
   MongoClient.connect(
-    "mongodb+srv://KoushikDutta:soBWGUmkHBXWDJvU@product.6itmcg5.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://KoushikDutta:soBWGUmkHBXWDJvU@product.6itmcg5.mongodb.net/shop?retryWrites=true&w=majority"
   )
     .then((client) => {
       console.log("Connected to MongoDb");
-      callback(client);
+      _db = client.db();
+      callback();
     })
     .catch((err) => {
       console.log(err);
+      throw err;
     });
 };
 
-module.exports = mongoConnect;
+const getDb = () => {
+  if (_db) {
+    return _db;
+  }
+  throw "No Database found";
+};
+
+exports.mongoConnect = mongoConnect;
+exports.db = getDb;

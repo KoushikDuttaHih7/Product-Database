@@ -78,7 +78,7 @@
 //   }
 // };
 
-const mongoConnect = require("../utility/database");
+const getDb = require("../utility/database").getDb;
 class Product {
   constructor(title, price, description, imageUrl) {
     this.title = title;
@@ -86,7 +86,7 @@ class Product {
     this.description = description;
     this.imageUrl = imageUrl;
   }
-  SAVE() {}
+  save() {}
 }
 
-module.exports(Product);
+module.exports = Product;
