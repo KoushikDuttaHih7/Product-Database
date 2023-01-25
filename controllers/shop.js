@@ -9,21 +9,25 @@ exports.getProducts = (req, res, next) => {
       pageTitle: "All Products",
       path: "/products",
     });
+  }).catch((err) => {
+    console.log(err);
   });
 };
 
 // This is for single product view
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
-  Product.findById(prodId, (product) => {
-    res.render("shop/product-detail", {
-      product: product,
-      pageTitle: product.title,
-      path: "/products",
-    });
-    // product on the right side is the one we are retriving
-    // product on the left side is the key we want to access it in the view
-  });
+  Product.findById(prodId)
+    .then((product) => {
+      res.render("shop/product-detail", {
+        product: product,
+        pageTitle: product.title,
+        path: "/products",
+      });
+      // product on the right side is the one we are retriving
+      // product on the left side is the key we want to access it in the view
+    })
+    .catch((err) => console.log(err));
 };
 
 // This is for index/main page products view
@@ -34,6 +38,8 @@ exports.getIndex = (req, res, next) => {
       pageTitle: "Shop",
       path: "/",
     });
+  }).catch((err) => {
+    console.log(err);
   });
 };
 
