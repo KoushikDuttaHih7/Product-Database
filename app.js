@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const errorController = require("./controllers/error");
+const mongoConnect = require("./utility/database");
 
 const app = express();
 
@@ -24,6 +25,9 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-app.listen(port, () => {
-  console.log("Server started at http://localhost:5000/");
+mongoConnect((client) => {
+  console.log(client);
+  app.listen(port, () => {
+    console.log("Server started at http://localhost:5000/");
+  });
 });
