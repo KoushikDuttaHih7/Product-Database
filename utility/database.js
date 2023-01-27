@@ -28,4 +28,4 @@ const getDb = () => {
 };
 
 exports.mongoConnect = mongoConnect;
-exports.db = getDb;
+exports.getDb = getDb;
