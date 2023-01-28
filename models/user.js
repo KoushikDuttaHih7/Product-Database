@@ -16,6 +16,7 @@ class User {
     return db.collection("users").insertOne(this);
   }
 
+  // adding items into the cart
   addToCart(product) {
     const cartProductIndex = this.cart.items.findIndex((cp) => {
       return cp.productId.toString() === product._id.toString();
@@ -44,6 +45,7 @@ class User {
       );
   }
 
+  // Showing the cart
   getCart() {
     const db = getDb();
     const productIds = this.cart.items.map((i) => {
@@ -65,6 +67,7 @@ class User {
       });
   }
 
+  // Deleting the items from the cart
   deleteItemFromCart(productId) {
     const updatedCartItems = this.cart.items.filter((item) => {
       return item.productId.toString() !== productId.toString();
@@ -78,6 +81,7 @@ class User {
       );
   }
 
+  //
   addOrder() {
     const db = getDb();
     return this.getCart()
@@ -102,6 +106,7 @@ class User {
       });
   }
 
+  //
   getOrders() {
     const db = getDb();
     return db
@@ -110,6 +115,7 @@ class User {
       .toArray();
   }
 
+  // Getting user Id
   static findById(userId) {
     const db = getDb();
     return db
